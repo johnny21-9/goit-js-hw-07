@@ -4,6 +4,7 @@ const destroyRef = document.querySelector('[data-action="destroy"]');
 const boxesRef = document.querySelector('#boxes');
 let boxCollection = [];
 let amount;
+let boxSide = 30;
 
 function randColor(max) {
     let red = Math.floor(Math.random() * max);
@@ -21,7 +22,8 @@ inputRef.addEventListener('change', () => {
 function createBoxes(amount) {
     for (let i = 1; i <= amount; i++) {
         const box = document.createElement('div');
-        let boxSide = 30 + i * 10 - 10;
+        boxSide += 10;
+        console.log(boxSide)
         box.style.width = `${boxSide}px`;
         box.style.height = `${boxSide}px`;
         box.style.backgroundColor = randColor(256);
@@ -31,7 +33,7 @@ function createBoxes(amount) {
 
 renderRef.addEventListener('click', () => {
     createBoxes(amount); //создаем боксы в памяти
-    boxesRef.innerHTML = ''; //при повторном нажатии на "Создать" блоки не добавляются к предыдущим, а рендерится их новое количество
+    // boxesRef.innerHTML = ''; //при повторном нажатии на "Создать" блоки не добавляются к предыдущим, а рендерится их новое количество
     boxesRef.append(...boxCollection); //рендерим боксы
     boxCollection = []; //очищаем массив
 });
@@ -39,4 +41,5 @@ renderRef.addEventListener('click', () => {
 destroyRef.addEventListener('click', () => {
     boxesRef.innerHTML = '';
     inputRef.value = ''; //очищаем поле ввода
+    boxSide = 30;
 });
